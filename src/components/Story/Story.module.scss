@@ -49,6 +49,9 @@
       align-items: center;
 
       .expand {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 16px;
         height: 16px;
         margin-left: 20px;

@@ -1,20 +1,31 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Dropdown}  from 'react-bootstrap';
+import s from './ButtonDropdown.module.scss';
 
 class ButtonDropdown extends Component {
   render() {
+    const {
+      value,
+      title
+    } = this.props;
+
     return (
       <Dropdown>
         <Dropdown.Toggle>
-          pashel  abhytujhnmp o
+          <div className={s.value}>
+            {value}
+          </div>
+          <div className={s.title}>
+            {title}
+          </div>
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item>
-            pashel
+            2
           </Dropdown.Item>
           <Dropdown.Item>
-            nahuy
+            1
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
@@ -23,8 +34,8 @@ class ButtonDropdown extends Component {
 }
 
 ButtonDropdown.propTypes = {
-  description: PropTypes.string,
-  name: PropTypes.string,
+  value: PropTypes.string,
+  title: PropTypes.string,
   items: PropTypes.array
 };
 

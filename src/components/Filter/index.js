@@ -24,9 +24,9 @@ class Filter extends Component {
 
         </div>
         <div className={s.filter}>
-          <ButtonDropdown></ButtonDropdown>
-          <ButtonDropdown></ButtonDropdown>
-          <ButtonDropdown></ButtonDropdown>
+          <ButtonDropdown title={'autorefresh'} />
+          <ButtonDropdown title={'order'} />
+          <ButtonDropdown title={'languages'} />
         </div>
       </div>
     );

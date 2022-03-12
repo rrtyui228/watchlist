@@ -11,7 +11,9 @@ import Story from '../Story';
 @observer
 class Stories extends React.Component {
   render() {
-    return this.props.stories.map((story) => (
+    const {stories} = this.props;
+
+    return stories.map((story) => (
       <Story key={story.id} story={story} />
     ));
   }

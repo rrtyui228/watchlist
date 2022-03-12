@@ -3,7 +3,7 @@ import {observable, makeObservable, action} from 'mobx';
 class Watchlist {
   #nextPageToken = null;
 
-  #url = 'https://cf-endpoint-proxy.herokuapp.com/webapi/v1/stories?limit=20&languages=en,fr&order=top';
+  #url = 'https://cf-endpoint-proxy.herokuapp.com/webapi/v1/stories?limit=20&languages=en,fr&order_by=latest';
 
   #limit = 10;
 

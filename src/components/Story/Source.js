@@ -5,37 +5,34 @@ import {inject, observer} from 'mobx-react';
 
 @inject(({StoryStore}) => {
   return {
-    title: StoryStore.title,
-    description: StoryStore.description,
-    isExpanded: StoryStore.isExpanded,
+    thumb: StoryStore.thumb,
+    sourceName: StoryStore.sourceName,
+    publishDiffLabel: StoryStore.publishDiffLabel,
   };
 })
 @observer
 class Source extends React.Component {
   render() {
-    const {title, description, isExpanded} = this.props;
+    const {thumb, sourceName, publishDiffLabel} = this.props;
 
     return (
-      <div className={s.info}>
-        <div className={s.title}>
-          {title}
+      <div className={s.source}>
+        <img src={thumb} alt={''} className={s.thumb} />
+        <div className={s.name}>
+          {sourceName}
         </div>
-        {
-          isExpanded && (
-            <div className={s.description}>
-              {description}
-            </div>
-          )
-        }
+        <div className={s.publish}>
+          {publishDiffLabel}
+        </div>
       </div>
     );
   }
 }
 
 Source.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  isExpanded: PropTypes.bool
+  thumb: PropTypes.string,
+  sourceName: PropTypes.string,
+  publishDiffLabel: PropTypes.string
 };
 
 export default Source;

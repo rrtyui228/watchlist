@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import s from './Story.module.scss';
 import {inject, observer} from 'mobx-react';
+import Source from './Source';
 
 @inject(({StoryStore}) => {
   return {
@@ -27,6 +28,7 @@ class Summary extends React.Component {
             </div>
           )
         }
+        <Source />
       </div>
     );
   }

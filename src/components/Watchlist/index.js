@@ -1,12 +1,17 @@
 import React from 'react';
 import Stories from '../Stories';
-import Header from '../Header';
 import s from './Watchlist.module.scss';
+import Filter from '../Filter';
 
 const Watchlist = () => (
   <div className={s.watchlist}>
-    <Header />
-    <Stories />
+    <div className={s.container}>
+      <Filter />
+      <span className={s.mainTitle}>
+        Watchlist Name
+      </span>
+      <Stories />
+    </div>
   </div>
 );
 

@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  .buttons {
+    display: flex;
+  }
+
+  .filter {
+    display: flex;
+  }
+}

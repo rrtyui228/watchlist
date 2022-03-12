@@ -12,13 +12,7 @@ import Story from '../Story';
 class Stories extends React.Component {
   render() {
     return this.props.stories.map((story) => (
-      <Story
-        key={story.id}
-        title={story.title}
-        description={story.description}
-        image={story.imageUrls?.[0]}
-        score={story.score}
-      />
+      <Story key={story.id} story={story} />
     ));
   }
 }

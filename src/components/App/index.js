@@ -1,13 +1,13 @@
 import React from 'react';
 import WatchlistView from '../Watchlist';
-import Watchlist from '../../stores/Watchlist';
+import WatchlistStore from '../../stores/Watchlist';
 import {Provider} from 'mobx-react';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.WatchlistStore = new Watchlist();
+    this.WatchlistStore = new WatchlistStore();
   }
 
   render() {

@@ -1,63 +1,29 @@
 import React from 'react';
+import StoryView from './StoryView';
+import StoryStore from '../../stores/Story';
+import {Provider} from 'mobx-react';
 import PropTypes from 'prop-types';
-import s from './Story.module.scss';
-import Score from '../Score';
 
 class Story extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isExpanded: false
-    };
-  }
+    const {story} = props;
 
-  setIsExpanded({isExpanded: prevIsExpanded}) {
-    this.setState({
-      isExpanded: !prevIsExpanded
-    });
+    this.StoryStore = new StoryStore(story);
   }
 
   render() {
-    const {
-      title,
-      description,
-      image,
-      isExpanded = false,
-      score
-    } = this.props;
-
     return (
-      <div className={s.container}>
-        {
-          image && (
-            <img
-              src={image}
-              alt={''}
-              className={s.image}
-            />
-          )
-        }
-        <div className={s.content}>
-          <div className={s.info}>
-            {title}
-            {isExpanded && description}
-          </div>
-          <div className={s.rating}>
-            <Score score={score} />
-          </div>
-        </div>
-      </div>
+      <Provider StoryStore={this.StoryStore}>
+        <StoryView />
+      </Provider>
     );
   }
 }
 
 Story.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  image: PropTypes.string,
-  isExpanded: PropTypes.bool,
-  score: PropTypes.number,
+  story: PropTypes.object
 };
 
 export default Story;

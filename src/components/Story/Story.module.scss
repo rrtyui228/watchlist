@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  border-radius: 3px;
+  border: solid 1px #e0e0e0;
+  background-color: #ffffff;
+
+  .content {
+    display: flex;
+
+    .info {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .rating {
+      display: flex;
+      flex-grow: 0;
+    }
+  }
+
+  .image {
+    object-fit: cover;
+    max-width: 70px;
+  }
+}

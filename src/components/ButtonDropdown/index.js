@@ -1,42 +1,44 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Dropdown}  from 'react-bootstrap';
-import s from './ButtonDropdown.module.scss';
+import {Dropdown, SplitButton}  from 'react-bootstrap';
 
 class ButtonDropdown extends Component {
   render() {
     const {
-      value,
-      title
+      title,
+      items,
+      className
     } = this.props;
 
     return (
-      <Dropdown>
-        <Dropdown.Toggle>
-          <div className={s.value}>
-            {value}
-          </div>
-          <div className={s.title}>
-            {title}
-          </div>
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item>
-            2
-          </Dropdown.Item>
-          <Dropdown.Item>
-            1
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      <SplitButton
+        className={className}
+        title={title}
+        variant={'info'}
+      >
+        {
+          items.length ?
+            items.map((item) => {
+              return (
+                <Dropdown.Item key={item}>
+                  {item}
+                </Dropdown.Item>
+              );
+            }) : null
+        }
+      </SplitButton>
     );
   }
 }
 
 ButtonDropdown.propTypes = {
-  value: PropTypes.string,
-  title: PropTypes.string,
-  items: PropTypes.array
+  title: PropTypes.node.isRequired,
+  items: PropTypes.array,
+  className: PropTypes.string
+};
+
+ButtonDropdown.defaultProps = {
+  items: []
 };
 
 export default ButtonDropdown;

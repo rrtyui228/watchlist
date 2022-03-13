@@ -7,6 +7,7 @@
 
   .buttons {
     display: flex;
+    margin-bottom: 2px;
 
     .filterButton:first-child {
       margin-right: 6px;
@@ -31,7 +32,29 @@
     }
   }
 
+  .triangle {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 12px solid $gray-two;
+    margin-left: 10%;
+  }
+
   .filter {
-    display: flex;
+    width: 750px;
+    height: 80px;
+    background-color: $gray-two;
+
+    .filterContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .filterButton:not(:last-child) {
+      margin-right: 5px;
+    }
   }
 }

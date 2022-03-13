@@ -5,6 +5,7 @@ import s from './Filter.module.scss';
 import cn from 'classnames';
 import {ArrowClockwise, FunnelFill} from 'react-bootstrap-icons';
 import {inject, observer} from 'mobx-react';
+import ExpandedFilter from './ExpandedFilter';
 
 @inject(({WatchlistStore}) => {
   return {
@@ -13,6 +14,14 @@ import {inject, observer} from 'mobx-react';
 })
 @observer
 class Filter extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isExpanded: false
+    };
+  }
+
   get refreshIcon() {
     return <ArrowClockwise className={s.icon} />;
   }
@@ -25,6 +34,14 @@ class Filter extends Component {
       )
     } />;
   }
+
+  expandFilter = () => {
+    this.setState(({isExpanded: prevIsExpanded}) => {
+      return {
+        isExpanded: !prevIsExpanded
+      };
+    });
+  };
 
   createButton = (icon, innerText, onClick) => {
     return (
@@ -52,12 +69,14 @@ class Filter extends Component {
             this.createButton(this.refreshIcon, 'Refresh', fetchWatchlist)
           }
           {
-            this.createButton(this.filterIcon, 'Filters')
+            this.createButton(this.filterIcon, 'Filters', this.expandFilter)
           }
         </div>
-        {/*<div className={s.filter}>*/}
-
-        {/*</div>*/}
+        {
+          this.state.isExpanded && (
+            <ExpandedFilter />
+          )
+        }
       </div>
     );
   }

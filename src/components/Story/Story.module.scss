@@ -1,8 +1,10 @@
+@import '../../styles/variables';
+
 .container {
   display: flex;
   border-radius: 3px;
-  border: solid 1px #e0e0e0;
-  background-color: #ffffff;
+  border: solid 1px $white;
+  background-color: $white-four;
   margin-bottom: 7px;
 
   &:last-child {
@@ -27,19 +29,39 @@
         .thumb {
           width: 18px;
           height: 18px;
+          border-radius: 3px;
           margin-right: 10px;
         }
 
+        .publish {
+          color: $gray;
+          font-size: 12px;
+        }
+
         .name {
+          color: $gray;
+          font-size: 12px;
           margin-right: 20px;
         }
       }
 
       .title {
+        font-size: 16px;
+        line-height: 24px;
+        color: $black;
         margin-bottom: 10px;
+        text-decoration: none;
+
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
       }
 
       .description {
+        font-size: 16px;
+        line-height: 24px;
+        color: $black-two;
         margin-bottom: 10px;
       }
     }

@@ -8,6 +8,7 @@ class Watchlist {
   #limit = 10;
 
   @observable stories = [];
+  @observable loadingStatus;
 
   constructor() {
     makeObservable(this);
@@ -15,17 +16,30 @@ class Watchlist {
     this.fetchWatchlist();
   }
 
-
   @action setStories = (stories) => {
     this.stories = stories;
   };
 
-  fetchWatchlist = async() => {
-    const response = await fetch(this.#url);
-    const {stories, next_page_token: nextPageToken} = await response.json();
+  @action setLoadingStatus = (status) => {
+    this.loadingStatus = status;
+  };
 
-    this.#nextPageToken = nextPageToken;
-    this.setStories(stories);
+  fetchWatchlist = async() => {
+    try {
+      this.setLoadingStatus('loading');
+
+      const response = await fetch(this.#url);
+      const {stories, next_page_token: nextPageToken} = await response.json();
+
+      this.#nextPageToken = nextPageToken;
+      this.setStories(stories);
+
+      this.setLoadingStatus('success');
+    } catch(_) {
+      this.setLoadingStatus('error');
+      this.#nextPageToken = null;
+      this.setStories([]);
+    }
   };
 }
 

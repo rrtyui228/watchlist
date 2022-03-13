@@ -1,42 +1,70 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button';
-import ButtonDropdown from '../ButtonDropdown';
 import s from './Filter.module.scss';
+import cn from 'classnames';
+import {ArrowClockwise, FunnelFill} from 'react-bootstrap-icons';
+import {inject, observer} from 'mobx-react';
 
+@inject(({WatchlistStore}) => {
+  return {
+    fetchWatchlist: WatchlistStore.fetchWatchlist,
+  };
+})
+@observer
 class Filter extends Component {
+  get refreshIcon() {
+    return <ArrowClockwise className={s.icon} />;
+  }
+
+  get filterIcon() {
+    return <FunnelFill className={
+      cn(
+        s.mirrored,
+        s.icon
+      )
+    } />;
+  }
+
+  createButton = (icon, innerText, onClick) => {
+    return (
+      <Button
+        size={'small'}
+        variant={'light'}
+        className={s.filterButton}
+        onClick={onClick}
+      >
+        <div className={s.filterInnerButton}>
+          {icon}
+          {innerText}
+        </div>
+      </Button>
+    );
+  };
+
   render() {
+    const {fetchWatchlist} = this.props;
+
     return (
       <div className={s.container}>
         <div className={s.buttons}>
-          <Button
-            size={'small'}
-            variant={'light'}
-          >
-            Refresh
-          </Button>
-          <Button
-            size={'small'}
-            variant={'light'}
-          >
-            Filters
-          </Button>
+          {
+            this.createButton(this.refreshIcon, 'Refresh', fetchWatchlist)
+          }
+          {
+            this.createButton(this.filterIcon, 'Filters')
+          }
+        </div>
+        {/*<div className={s.filter}>*/}
 
-        </div>
-        <div className={s.filter}>
-          <ButtonDropdown title={'autorefresh'} />
-          <ButtonDropdown title={'order'} />
-          <ButtonDropdown title={'languages'} />
-        </div>
+        {/*</div>*/}
       </div>
     );
   }
 }
 
 Filter.propTypes = {
-  description: PropTypes.string,
-  name: PropTypes.string,
-  items: PropTypes.array
+  fetchWatchlist: PropTypes.func
 };
 
 export default Filter;

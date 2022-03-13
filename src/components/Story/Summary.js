@@ -9,18 +9,29 @@ import Source from './Source';
     title: StoryStore.title,
     description: StoryStore.description,
     isExpanded: StoryStore.isExpanded,
+    sourceUrl: StoryStore.sourceUrl
   };
 })
 @observer
 class Summary extends React.Component {
   render() {
-    const {title, description, isExpanded} = this.props;
+    const {
+      title,
+      description,
+      isExpanded,
+      sourceUrl
+    } = this.props;
 
     return (
       <div className={s.info}>
-        <div className={s.title}>
+        <a
+          href={sourceUrl}
+          className={s.title}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {title}
-        </div>
+        </a>
         {
           isExpanded && (
             <div className={s.description}>
@@ -37,7 +48,8 @@ class Summary extends React.Component {
 Summary.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
-  isExpanded: PropTypes.bool
+  isExpanded: PropTypes.bool,
+  sourceUrl: PropTypes.string
 };
 
 export default Summary;

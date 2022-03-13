@@ -6,10 +6,10 @@ import Filter from '../Filter';
 const Watchlist = () => (
   <div className={s.watchlist}>
     <div className={s.container}>
-      <Filter />
       <span className={s.mainTitle}>
         Watchlist Name
       </span>
+      <Filter />
       <Stories />
     </div>
   </div>

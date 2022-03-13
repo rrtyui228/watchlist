@@ -7,6 +7,7 @@ class Story {
   thumb = '';
   sourceName = '';
   publishDiffLabel = '';
+  sourceUrl = '';
 
   imageUrls = [];
   score = 0;
@@ -20,7 +21,8 @@ class Story {
     score,
     domain_cached_logo_url,
     domain_name,
-    publishTimeDiff
+    publishTimeDiff,
+    url
   }) {
     makeObservable(this);
 
@@ -32,6 +34,7 @@ class Story {
 
     this.thumb = domain_cached_logo_url;
     this.sourceName = domain_name;
+    this.sourceUrl = url;
     this.publishDiffLabel = this.getDatesDifference(publishTimeDiff);
   }
 

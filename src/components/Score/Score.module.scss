@@ -1,3 +1,5 @@
+@import '../../styles/variables';
+
 .container {
   display: flex;
   justify-content: center;
@@ -8,17 +10,17 @@
   background-color: transparent;
 
   &Green {
-    border: solid 1px #4eb495;
-    color: #4eb495;
+    border: solid 1px $green;
+    color: $green;
   }
 
   &Yellow {
-    border: solid 1px #ffb300;
-    color: #ffb300;
+    border: solid 1px $yellow;
+    color: $yellow;
   }
 
   &Red {
-    border: solid 1px #ef6c00;
-    color: #ef6c00;
+    border: solid 1px $orange;
+    color: $orange;
   }
 }

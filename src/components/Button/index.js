@@ -10,13 +10,15 @@ class Button extends Component {
       size,
       variant,
       children,
-      onClick
+      onClick,
+      className
     } = this.props;
 
     return (
       <ButtonBootstrap
         className={
           cn(
+            className,
             s.button,
             {
               [s.large]: size === 'large',
@@ -50,7 +52,8 @@ Button.propTypes = {
     'link'
   ]),
   children: PropTypes.node,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  className: PropTypes.string
 };
 
 Button.defaultProps = {

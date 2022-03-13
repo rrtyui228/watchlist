@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Button from '../Button';
 import s from './Filter.module.scss';
 import cn from 'classnames';
 import {ArrowClockwise, FunnelFill} from 'react-bootstrap-icons';
 import {inject, observer} from 'mobx-react';
 import ExpandedFilter from './ExpandedFilter';
+import {Button} from 'shared';
 
 @inject(({WatchlistStore}) => {
   return {

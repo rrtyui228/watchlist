@@ -1,7 +1,7 @@
 import React from 'react';
-import Stories from '../Stories';
 import s from './Watchlist.module.scss';
-import Filter from '../Filter';
+import Stories from 'components/Stories';
+import Filter from 'components/Filter';
 
 const Watchlist = () => (
   <div className={s.watchlist}>

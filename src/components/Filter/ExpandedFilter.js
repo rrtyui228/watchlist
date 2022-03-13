@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import s from './Filter.module.scss';
-import ButtonDropdown from '../ButtonDropdown';
-import DropdownLabel from '../DropdownLabel';
-import Button from '../Button';
 import {inject, observer} from 'mobx-react';
 import {toJS} from 'mobx';
+import {Button, ButtonDropdown, DropdownLabel} from 'shared';
 
 @inject(({WatchlistStore}) => {
   return {

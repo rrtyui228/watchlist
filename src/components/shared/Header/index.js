@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Header.module.scss';
-import logo from '../../assets/logo.svg';
+import logo from 'assets/logo.svg';
 import {CaretDownFill} from 'react-bootstrap-icons';
 
 const Header = () => {

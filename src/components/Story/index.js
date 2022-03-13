@@ -1,6 +1,6 @@
 import React from 'react';
 import StoryView from './StoryView';
-import StoryStore from '../../stores/Story';
+import StoryStore from 'stores/Story';
 import {Provider} from 'mobx-react';
 import PropTypes from 'prop-types';
 

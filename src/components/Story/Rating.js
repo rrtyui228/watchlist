@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import s from './Story.module.scss';
-import Score from '../Score';
-import {ChevronDown} from 'react-bootstrap-icons';
-import cn from 'classnames';
 import {inject, observer} from 'mobx-react';
+import s from './Story.module.scss';
+import cn from 'classnames';
+import {ChevronDown} from 'react-bootstrap-icons';
+import {Score} from 'shared';
 
 @inject(({StoryStore}) => {
   return {

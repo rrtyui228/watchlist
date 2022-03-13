@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {Dropdown, SplitButton}  from 'react-bootstrap';
 
 class ButtonDropdown extends Component {
+  onChange = ({target}) => this.props.onChange?.(target?.innerText);
+
   render() {
     const {
       title,
@@ -20,7 +22,10 @@ class ButtonDropdown extends Component {
           items.length ?
             items.map((item) => {
               return (
-                <Dropdown.Item key={item}>
+                <Dropdown.Item
+                  key={item}
+                  onClick={this.onChange}
+                >
                   {item}
                 </Dropdown.Item>
               );
@@ -34,7 +39,8 @@ class ButtonDropdown extends Component {
 ButtonDropdown.propTypes = {
   title: PropTypes.node.isRequired,
   items: PropTypes.array,
-  className: PropTypes.string
+  className: PropTypes.string,
+  onChange: PropTypes.func
 };
 
 ButtonDropdown.defaultProps = {

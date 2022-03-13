@@ -1,8 +1,6 @@
 @import '../../styles/variables';
 
 .container {
-  display: flex;
-  flex-direction: column;
   margin-bottom: 20px;
 
   .buttons {
@@ -42,15 +40,14 @@
   }
 
   .filter {
-    width: 750px;
-    height: 80px;
     background-color: $gray-two;
+    display: inline-block;
+    padding: 20px;
 
-    .filterContainer {
+    .wrapper {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
     }
 
     .filterButton:not(:last-child) {

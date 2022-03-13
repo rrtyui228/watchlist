@@ -12,7 +12,10 @@ import {Button, ButtonDropdown, DropdownLabel} from 'shared';
     languages: toJS(WatchlistStore.filters.languages) || [],
     languagesList: WatchlistStore.languagesList,
     orderList: WatchlistStore.orderList,
-    refreshList: WatchlistStore.refreshList
+    refreshList: WatchlistStore.refreshList,
+    setLanguages: WatchlistStore.setLanguages,
+    setOrder: WatchlistStore.setOrder,
+    setRefreshTime: WatchlistStore.setRefreshTime
   };
 })
 @observer
@@ -24,15 +27,19 @@ class ExpandedFilter extends Component {
       languages,
       languagesList,
       orderList,
-      refreshList
+      refreshList,
+      setLanguages,
+      setOrder,
+      setRefreshTime
     } = this.props;
 
     return (
       <>
         <div className={s.triangle} />
         <div className={s.filter}>
-          <div className={s.filterContainer}>
+          <div className={s.wrapper}>
             <ButtonDropdown
+              onChange={setRefreshTime}
               className={s.filterButton}
               items={refreshList}
               title={
@@ -43,6 +50,7 @@ class ExpandedFilter extends Component {
               }
             />
             <ButtonDropdown
+              onChange={setOrder}
               className={s.filterButton}
               items={orderList}
               title={
@@ -53,6 +61,7 @@ class ExpandedFilter extends Component {
               }
             />
             <ButtonDropdown
+              onChange={setLanguages}
               className={s.filterButton}
               items={languagesList}
               title={
@@ -78,7 +87,10 @@ ExpandedFilter.propTypes = {
   orderList: PropTypes.arrayOf(PropTypes.string),
   refreshList: PropTypes.arrayOf(PropTypes.string),
   order: PropTypes.string,
-  languages: PropTypes.array
+  languages: PropTypes.array,
+  setLanguages: PropTypes.func,
+  setOrder: PropTypes.func,
+  setRefreshTime: PropTypes.func
 };
 
 export default ExpandedFilter;

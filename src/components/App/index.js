@@ -11,6 +11,10 @@ class App extends React.Component {
     this.WatchlistStore = new WatchlistStore();
   }
 
+  componentWillUnmount() {
+    this.WatchlistStore.unmount();
+  }
+
   render() {
     return (
       <Provider WatchlistStore={this.WatchlistStore}>

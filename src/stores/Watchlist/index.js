@@ -1,4 +1,5 @@
 import {action, makeObservable, observable, reaction, toJS} from 'mobx';
+import {isEqual} from 'lodash';
 
 const MILLISECONDS_FACTOR = 1000;
 
@@ -9,7 +10,7 @@ class Watchlist {
 
   #url = 'https://cf-endpoint-proxy.herokuapp.com/webapi/v1/stories';
 
-  #limit = 10;
+  #limit = 20;
 
   #defaultFilters = {
     autoRefresh: '1 minute',
@@ -38,11 +39,18 @@ class Watchlist {
   @observable stories = [];
   @observable filters = {};
   @observable loadingStatus;
+  @observable needLoad = false;
 
   constructor() {
     makeObservable(this);
 
-    this.setFilters(this.#defaultFilters);
+    window.onscroll = () => {
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        this.setNeedLoad(true);
+      }
+    };
+
+    this.resetFilters();
     this.fetchWatchlist();
 
     this.refreshReaction = reaction(
@@ -61,7 +69,16 @@ class Watchlist {
         this.fetchWatchlist();
       }
     );
+
+    this.infiniteLoaderReaction = reaction(
+      () => this.needLoad,
+      () => this.infiniteLoadLoop()
+    );
   }
+
+  @action setNeedLoad = (needLoad) => {
+    this.needLoad = needLoad;
+  };
 
   @action setRefreshTime = (autoRefresh) => {
     if (autoRefresh !== this.filters.autoRefresh) {
@@ -76,8 +93,10 @@ class Watchlist {
   };
 
   @action setLanguages = (languages) => {
-    // TODO: remove to array
-    this.filters.languages = [languages];
+    if (!isEqual(this.filters.languages, [languages])) {
+      // TODO: remove to array
+      this.filters.languages = [languages];
+    }
   };
 
   @action setFilters = (filters) => {
@@ -95,7 +114,11 @@ class Watchlist {
   unmount = () => {
     this.refreshReaction();
     this.filtersReaction();
+    this.infiniteLoaderReaction();
+
     this.clearRefresh();
+
+    delete window.onscroll;
   };
 
   clearRefresh = () => {
@@ -112,6 +135,26 @@ class Watchlist {
     );
   };
 
+  resetFilters = () => {
+    if (!isEqual(this.filters, this.#defaultFilters)) {
+      this.setFilters(this.#defaultFilters);
+    }
+  };
+
+  infiniteLoadLoop = async() => {
+    if (this.needLoad) {
+      const url = this.generateUrl(this.#url, true);
+
+      const response = await fetch(url);
+      const {stories, next_page_token: nextPageToken} = await response.json();
+
+      this.#nextPageToken = nextPageToken;
+      this.setStories([...this.stories, ...stories]);
+
+      this.setNeedLoad(false);
+    }
+  };
+
   fetchWatchlist = async() => {
     try {
       this.setLoadingStatus('loading');
@@ -119,6 +162,7 @@ class Watchlist {
       const url = this.generateUrl(this.#url);
 
       const response = await fetch(url);
+
       const {stories, next_page_token: nextPageToken} = await response.json();
 
       this.#nextPageToken = nextPageToken;
@@ -133,7 +177,7 @@ class Watchlist {
     }
   };
 
-  generateUrl = (url) => {
+  generateUrl = (url, withOffset) => {
     const {
       filters: {
         order,
@@ -151,6 +195,10 @@ class Watchlist {
 
     if (languages.length) {
       resultUrl += `&languages=${languages.join(',')}`;
+    }
+
+    if (this.#nextPageToken && withOffset) {
+      resultUrl += `&page_token=${this.#nextPageToken}`;
     }
 
     return resultUrl;

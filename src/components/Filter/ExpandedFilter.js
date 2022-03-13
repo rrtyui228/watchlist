@@ -15,7 +15,8 @@ import {Button, ButtonDropdown, DropdownLabel} from 'shared';
     refreshList: WatchlistStore.refreshList,
     setLanguages: WatchlistStore.setLanguages,
     setOrder: WatchlistStore.setOrder,
-    setRefreshTime: WatchlistStore.setRefreshTime
+    setRefreshTime: WatchlistStore.setRefreshTime,
+    resetFilters: WatchlistStore.resetFilters
   };
 })
 @observer
@@ -30,7 +31,8 @@ class ExpandedFilter extends Component {
       refreshList,
       setLanguages,
       setOrder,
-      setRefreshTime
+      setRefreshTime,
+      resetFilters
     } = this.props;
 
     return (
@@ -71,7 +73,10 @@ class ExpandedFilter extends Component {
                 />
               }
             />
-            <Button className={s.filterButton}>
+            <Button
+              onClick={resetFilters}
+              className={s.filterButton}
+            >
               Reset
             </Button>
           </div>
@@ -90,7 +95,8 @@ ExpandedFilter.propTypes = {
   languages: PropTypes.array,
   setLanguages: PropTypes.func,
   setOrder: PropTypes.func,
-  setRefreshTime: PropTypes.func
+  setRefreshTime: PropTypes.func,
+  resetFilters: PropTypes.func
 };
 
 export default ExpandedFilter;

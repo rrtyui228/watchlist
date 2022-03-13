@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import s from './Story.module.scss';
+import s from '../Story.module.scss';
 import {inject, observer} from 'mobx-react';
 
 @inject(({StoryStore}) => {

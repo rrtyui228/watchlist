@@ -45,6 +45,7 @@ class Watchlist {
   @observable stories = [];
   @observable filters = {};
   @observable loadingStatus;
+  @observable infiniteLoadingStatus;
   @observable needLoad = false;
 
   constructor() {
@@ -144,6 +145,10 @@ class Watchlist {
     this.loadingStatus = status;
   };
 
+  @action setInfiniteLoadingStatus = (infiniteLoadingStatus) => {
+    this.infiniteLoadingStatus = infiniteLoadingStatus;
+  };
+
   unmount = () => {
     this.refreshReaction();
     this.filtersReaction();
@@ -181,31 +186,49 @@ class Watchlist {
     }
   };
 
+  doRequest = async(url) => {
+    const response = await fetch(url);
+    const {stories, next_page_token: nextPageToken} = await response.json();
+
+    this.#nextPageToken = nextPageToken;
+
+    return stories;
+  };
+
   infiniteLoadLoop = async() => {
-    if (this.needLoad) {
-      const url = this.generateUrl(this.#url, true);
+    if (!this.needLoad) {
+      return;
+    }
 
-      const response = await fetch(url);
-      const {stories, next_page_token: nextPageToken} = await response.json();
+    this.setInfiniteLoadingStatus('loading');
 
-      this.#nextPageToken = nextPageToken;
-      this.setStories([...this.stories, ...stories]);
+    const prevStories = this.stories;
 
+    const url = this.generateUrl(this.#url, true);
+
+    try {
+      const stories = await this.doRequest(url);
+
+      this.setStories([...prevStories, ...stories]);
+
+      this.setInfiniteLoadingStatus('success');
+    } catch(_) {
+      this.setInfiniteLoadingStatus('error');
+
+      this.setStories(prevStories);
+    } finally {
       this.setNeedLoad(false);
     }
   };
 
   fetchWatchlist = async() => {
+    const url = this.generateUrl(this.#url);
+
     try {
       this.setLoadingStatus('loading');
 
-      const url = this.generateUrl(this.#url);
+      const stories = await this.doRequest(url);
 
-      const response = await fetch(url);
-
-      const {stories, next_page_token: nextPageToken} = await response.json();
-
-      this.#nextPageToken = nextPageToken;
       this.setStories(stories);
 
       this.setLoadingStatus('success');

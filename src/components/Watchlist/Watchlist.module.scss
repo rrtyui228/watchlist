@@ -8,16 +8,17 @@
     'header header'
     'watchlist void';
 
+  @media screen and (max-width: $medium-screen) {
+    grid-template-columns: 1fr;
+  }
+
   .container {
     grid-area: watchlist;
     background-color: $white-two;
     padding: 30px 30px 20px 70px;
 
-    .mainTitle {
-      color: $blue;
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 15px;
+    @media screen and (max-width: $medium-screen) {
+      padding: 30px 20px 20px;
     }
   }
 }

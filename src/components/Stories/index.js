@@ -3,28 +3,46 @@ import {inject, observer} from 'mobx-react';
 import PropTypes from 'prop-types';
 import Story from 'components/Story';
 import {Loader} from 'shared';
+import s from './Stories.module.scss';
 
 @inject(({WatchlistStore}) => {
   return {
     stories: WatchlistStore.stories || [],
-    loadingStatus: WatchlistStore.loadingStatus
+    loadingStatus: WatchlistStore.loadingStatus,
+    infiniteLoadingStatus: WatchlistStore.infiniteLoadingStatus
   };
 })
 @observer
 class Stories extends React.Component {
   render() {
-    const {stories, loadingStatus} = this.props;
+    const {
+      stories,
+      loadingStatus,
+      infiniteLoadingStatus
+    } = this.props;
 
-    return loadingStatus === 'loading' ? <Loader /> :
-      stories.map((story) => (
-        <Story key={story.id} story={story} />
-      ));
+    return (
+      <div className={s.stories}>
+        {
+          loadingStatus === 'loading' ? <Loader /> :
+            stories.map((story) => (
+              <Story key={story.id} story={story} />
+            ))
+        }
+        {
+          infiniteLoadingStatus === 'loading' && (
+            <Loader />
+          )
+        }
+      </div>
+    );
   }
 }
 
 Stories.propTypes = {
   stories: PropTypes.array,
-  loadingStatus: PropTypes.string
+  loadingStatus: PropTypes.string,
+  infiniteLoadingStatus: PropTypes.string
 };
 
 export default Stories;

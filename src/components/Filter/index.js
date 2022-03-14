@@ -61,36 +61,41 @@ class Filter extends Component {
 
     return (
       <div className={s.container} ref={this.filterRef}>
-        <div className={s.buttons}>
-          <Button
-            size={'small'}
-            variant={'light'}
-            className={s.filterButton}
-            onClick={fetchWatchlist}
-          >
-            <div className={s.filterInnerButton}>
-              {this.refreshIcon}
-              Refresh
-            </div>
-          </Button>
-          <Button
-            size={'small'}
-            variant={'light'}
-            className={
-              cn(
-                s.filterButton,
-                {
-                  [s.active]: this.state.isExpanded
-                }
-              )
-            }
-            onClick={this.handleClick}
-          >
-            <div className={s.filterInnerButton}>
-              {this.filterIcon}
-              Filters
-            </div>
-          </Button>
+        <div className={s.filterHeader}>
+          <div className={s.mainTitle}>
+            Watchlist Name
+          </div>
+          <div className={s.buttons}>
+            <Button
+              size={'small'}
+              variant={'light'}
+              className={s.filterButton}
+              onClick={fetchWatchlist}
+            >
+              <div className={s.filterInnerButton}>
+                {this.refreshIcon}
+                Refresh
+              </div>
+            </Button>
+            <Button
+              size={'small'}
+              variant={'light'}
+              className={
+                cn(
+                  s.filterButton,
+                  {
+                    [s.active]: this.state.isExpanded
+                  }
+                )
+              }
+              onClick={this.handleClick}
+            >
+              <div className={s.filterInnerButton}>
+                {this.filterIcon}
+                Filters
+              </div>
+            </Button>
+          </div>
         </div>
         {
           this.state.isExpanded && (

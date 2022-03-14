@@ -3,31 +3,81 @@
 $rotate-start: 40deg;
 
 .container {
-  display: inline-block;
   margin-bottom: 20px;
 
-  .buttons {
-    display: flex;
-    margin-bottom: 2px;
+  .filterHeader {
+    display: inline-block;
 
-    .active {
-      background-color: $gray-two;
-      border: solid 1px $gray-two;
+    @media screen and (max-width: $medium-screen) {
+      display: flex;
+      justify-content: space-between;
     }
 
-    .filterButton {
-      &:first-child {
-        margin-right: 6px;
+    .mainTitle {
+      color: $blue;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .buttons {
+      display: flex;
+      margin-bottom: 2px;
+
+      @media screen and (max-width: $medium-screen) {
+        justify-content: flex-end;
       }
 
-      &:hover .icon {
-        transform: scale(1.3);
+      .active {
+        background-color: $gray-two;
+        border: solid 1px $gray-two;
       }
 
-      &:hover .rotate {
-        animation: 1s linear 0s normal none infinite running refresh;
+      .filterButton {
+        &:first-child {
+          margin-right: 6px;
+        }
 
-        &:hover {
+        &:hover .icon {
+          transform: scale(1.3);
+        }
+
+        &:hover .rotate {
+          animation: 1s linear 0s normal none infinite running refresh;
+
+          &:hover {
+            @keyframes refresh {
+              0% {
+                transform: rotate($rotate-start);
+              }
+              100% {
+                transform: rotate(360deg + $rotate-start);
+              }
+            }
+          }
+        }
+      }
+
+      .filterInnerButton {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        .icon {
+          width: 20px;
+          height: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: $blue;
+        }
+
+        .rotate {
+          transform: rotate($rotate-start);
+          animation: 5s linear 0s normal none infinite running refresh;
+
           @keyframes refresh {
             0% {
               transform: rotate($rotate-start);
@@ -37,60 +87,43 @@ $rotate-start: 40deg;
             }
           }
         }
-      }
-    }
 
-    .filterInnerButton {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-
-      .icon {
-        width: 20px;
-        height: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: $blue;
-      }
-
-      .rotate {
-        transform: rotate($rotate-start);
-        animation: 5s linear 0s normal none infinite running refresh;
-
-        @keyframes refresh {
-          0% {
-            transform: rotate($rotate-start);
-          }
-          100% {
-            transform: rotate(360deg + $rotate-start);
-          }
+        .mirrored {
+          transition: 1s;
+          transform: scaleX(-1);
         }
-      }
-
-      .mirrored {
-        transition: 1s;
-        transform: scaleX(-1);
       }
     }
   }
 
   .expandedFilter {
+    @media screen and (max-width: $medium-screen) {
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: column;
+    }
+
     .triangle {
       width: 0;
       height: 0;
       border-left: 10px solid transparent;
       border-right: 10px solid transparent;
       border-bottom: 12px solid $gray-two;
-      margin-left: 20%;
+      margin-left: 145px;
+
+      @media screen and (max-width: $medium-screen) {
+        margin-left: 92%;
+      }
     }
 
     .filter {
       background-color: $gray-two;
       display: inline-block;
-      padding: 20px;
+      padding: 20px 24px;
+
+      @media screen and (max-width: $medium-screen) {
+        padding: 20px 12px;
+      }
 
       .wrapper {
         display: flex;

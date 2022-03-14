@@ -21,6 +21,7 @@ class Story {
     imageUrls,
     score,
     domain_cached_logo_url,
+    domain_cached_large_logo_url,
     domain_name,
     domain_host,
     publishTimeDiff,
@@ -34,7 +35,7 @@ class Story {
     this.imageUrls = imageUrls;
     this.score = score;
 
-    this.thumb = domain_cached_logo_url;
+    this.thumb = domain_cached_large_logo_url || domain_cached_logo_url;
     this.sourceName = domain_name;
     this.sourceUrl = url;
     this.sourceHost = `https://${domain_host}`;

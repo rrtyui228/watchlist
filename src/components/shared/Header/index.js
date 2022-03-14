@@ -12,7 +12,7 @@ const Header = () => {
         </a>
         <div className={s.avatarContainer}>
           <div className={s.avatar} />
-          <CaretDownFill />
+          <CaretDownFill className={s.icon} />
         </div>
       </header>
     </div>

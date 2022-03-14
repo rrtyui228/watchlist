@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import s from './Filter.module.scss';
 import cn from 'classnames';
 import {ArrowClockwise, FunnelFill} from 'react-bootstrap-icons';
 import {inject, observer} from 'mobx-react';
-import ExpandedFilter from './ExpandedFilter';
+import ExpandedFilter from './ExpandedFilterView';
 import {Button} from 'shared';
 
 @inject(({WatchlistStore}) => {
@@ -17,6 +17,8 @@ class Filter extends Component {
   constructor(props) {
     super(props);
 
+    this.filterRef = createRef();
+
     this.state = {
       isExpanded: false
     };
@@ -27,13 +29,24 @@ class Filter extends Component {
   }
 
   get filterIcon() {
-    return <FunnelFill className={
-      cn(
-        s.mirrored,
-        s.icon
-      )
-    } />;
+    return <FunnelFill className={cn(s.mirrored, s.icon)} />;
   }
+
+  handleClick = () => {
+    if (this.state.isExpanded) {
+      document.removeEventListener('click', this.handleOutsideClick, false);
+    } else {
+      document.addEventListener('click', this.handleOutsideClick, false);
+    }
+
+    this.expandFilter();
+  };
+
+  handleOutsideClick = (event) => {
+    if (!this.filterRef.current?.contains(event.target)) {
+      this.handleClick();
+    }
+  };
 
   expandFilter = () => {
     this.setState(({isExpanded: prevIsExpanded}) => {
@@ -47,7 +60,7 @@ class Filter extends Component {
     const {fetchWatchlist} = this.props;
 
     return (
-      <div className={s.container}>
+      <div className={s.container} ref={this.filterRef}>
         <div className={s.buttons}>
           <Button
             size={'small'}
@@ -71,7 +84,7 @@ class Filter extends Component {
                 }
               )
             }
-            onClick={this.expandFilter}
+            onClick={this.handleClick}
           >
             <div className={s.filterInnerButton}>
               {this.filterIcon}

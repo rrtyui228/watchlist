@@ -16,6 +16,7 @@ import {Button} from 'shared';
     ordersMap: WatchlistStore.ordersMap,
     languagesLabel: WatchlistStore.languagesLabel,
     reverseLanguagesMap: WatchlistStore.reverseLanguagesMap,
+    allLanguagesLabel: WatchlistStore.allLanguagesLabel,
     selectedAllLanguages: WatchlistStore.selectedAllLanguages,
     refreshList: WatchlistStore.refreshList,
     setLanguages: WatchlistStore.setLanguages,
@@ -25,7 +26,7 @@ import {Button} from 'shared';
   };
 })
 @observer
-class ExpandedFilter extends Component {
+class ExpandedFilterView extends Component {
   render() {
     const {
       autoRefresh,
@@ -37,6 +38,7 @@ class ExpandedFilter extends Component {
       reverseLanguagesMap,
       selectedAllLanguages,
       languagesLabel,
+      allLanguagesLabel,
       refreshList,
       setLanguages,
       setOrder,
@@ -66,12 +68,12 @@ class ExpandedFilter extends Component {
     });
 
     const formattedLanguagesList = [{
-      item: 'All Languages',
+      item: allLanguagesLabel,
       checked: selectedAllLanguages
     }, ...languagesPreset];
 
     return (
-      <>
+      <div className={s.expandedFilter}>
         <div className={s.triangle} />
         <div className={s.filter}>
           <div className={s.wrapper}>
@@ -101,12 +103,12 @@ class ExpandedFilter extends Component {
             </Button>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }
 
-ExpandedFilter.propTypes = {
+ExpandedFilterView.propTypes = {
   autoRefresh: PropTypes.string,
   languagesList: PropTypes.arrayOf(PropTypes.string),
   orderList: PropTypes.arrayOf(PropTypes.string),
@@ -118,9 +120,10 @@ ExpandedFilter.propTypes = {
   order: PropTypes.string,
   languages: PropTypes.array,
   setLanguages: PropTypes.func,
+  allLanguagesLabel: PropTypes.string,
   setOrder: PropTypes.func,
   setRefreshTime: PropTypes.func,
   resetFilters: PropTypes.func
 };
 
-export default ExpandedFilter;
+export default ExpandedFilterView;

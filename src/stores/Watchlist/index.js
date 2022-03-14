@@ -78,6 +78,10 @@ class Watchlist {
     );
   }
 
+  get allLanguagesLabel() {
+    return 'All Languages';
+  }
+
   @computed get selectedAllLanguages() {
     const {languages} = this.filters;
 
@@ -88,7 +92,7 @@ class Watchlist {
     const {languages} = this.filters;
 
     if (!languages.length || this.selectedAllLanguages) {
-      return 'All Languages';
+      return this.allLanguagesLabel;
     }
 
     let languagesLabel = `${languagesMap[languages[0]]}`;
@@ -119,7 +123,7 @@ class Watchlist {
   @action setLanguages = (label, checked) => {
     const language = this.reverseLanguagesMap[label];
 
-    if (label === 'All Languages') {
+    if (label === this.allLanguagesLabel) {
       this.filters.languages = checked ? Object.keys(this.languagesMap) : [];
     } else if (checked) {
       this.filters.languages.push(language);

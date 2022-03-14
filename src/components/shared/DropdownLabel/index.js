@@ -4,10 +4,7 @@ import s from './DropdownLabel.module.scss';
 
 class DropdownLabel extends Component {
   render() {
-    const {
-      title,
-      value
-    } = this.props;
+    const {title, value} = this.props;
 
     return (
       <div className={s.container}>

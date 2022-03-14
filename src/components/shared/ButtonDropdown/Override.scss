@@ -119,4 +119,8 @@
   &:focus::after {
     transform: rotate(225deg);
   }
+
+  &:not(:focus)::after {
+    transform: rotate(225deg);
+  }
 }

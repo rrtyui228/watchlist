@@ -3,7 +3,6 @@ import {inject, observer} from 'mobx-react';
 import PropTypes from 'prop-types';
 import Story from 'components/Story';
 import {Loader} from 'shared';
-import s from './Stories.module.scss';
 
 @inject(({WatchlistStore}) => {
   return {
@@ -22,7 +21,7 @@ class Stories extends React.Component {
     } = this.props;
 
     return (
-      <div className={s.stories}>
+      <div>
         {
           loadingStatus === 'loading' ? <Loader /> :
             stories.map((story) => (

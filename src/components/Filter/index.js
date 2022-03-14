@@ -5,7 +5,7 @@ import cn from 'classnames';
 import {ArrowClockwise, FunnelFill} from 'react-bootstrap-icons';
 import {inject, observer} from 'mobx-react';
 import ExpandedFilter from './ExpandedFilterView';
-import {Button} from 'shared';
+import FilterHeader from './FilterHeader';
 
 @inject(({WatchlistStore}) => {
   return {
@@ -56,49 +56,22 @@ class Filter extends Component {
     });
   };
 
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleOutsideClick, false);
+  }
+
   render() {
     const {fetchWatchlist} = this.props;
 
     return (
       <div className={s.container} ref={this.filterRef}>
-        <div className={s.filterHeader}>
-          <div className={s.mainTitle}>
-            Watchlist Name
-          </div>
-          <div className={s.buttons}>
-            <Button
-              size={'small'}
-              variant={'light'}
-              className={s.filterButton}
-              onClick={fetchWatchlist}
-            >
-              <div className={s.filterInnerButton}>
-                {this.refreshIcon}
-                <div className={s.filterButtonLabel}>
-                  Refresh
-                </div>
-              </div>
-            </Button>
-            <Button
-              size={'small'}
-              variant={'light'}
-              className={
-                cn(
-                  s.filterButton,
-                  {[s.active]: this.state.isExpanded}
-                )
-              }
-              onClick={this.handleClick}
-            >
-              <div className={s.filterInnerButton}>
-                {this.filterIcon}
-                <div className={s.filterButtonLabel}>
-                  Filters
-                </div>
-              </div>
-            </Button>
-          </div>
-        </div>
+        <FilterHeader
+          fetchWatchlist={fetchWatchlist}
+          handleClick={this.handleClick}
+          refreshIcon={this.refreshIcon}
+          filterIcon={this.filterIcon}
+          isExpanded={this.state.isExpanded}
+        />
         {
           this.state.isExpanded && (
             <ExpandedFilter />

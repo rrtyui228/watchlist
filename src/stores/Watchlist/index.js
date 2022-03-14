@@ -215,6 +215,7 @@ class Watchlist {
     } catch(_) {
       this.setInfiniteLoadingStatus('error');
 
+      // fallback if failed fetch
       this.setStories(prevStories);
     } finally {
       this.setNeedLoad(false);

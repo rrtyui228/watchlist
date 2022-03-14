@@ -31,6 +31,11 @@ $rotate-start: 40deg;
       .active {
         background-color: $gray-two;
         border: solid 1px $gray-two;
+
+        @media screen and (max-width: $small-screen) {
+          background-color: $white-four;
+          border: solid 1px $white-four !important;
+        }
       }
 
       .filterButton {

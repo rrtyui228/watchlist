@@ -1,0 +1,32 @@
+@import '../../../styles/variables';
+
+.btn-group {
+  height: 40px;
+}
+
+.btn-info {
+  background-color: $white-four;
+  border-color: transparent !important;
+
+  &:hover {
+    background-color: $white-two;
+    border: solid 1px $white-two;
+  }
+
+  &:not(:hover) {
+    border: solid 1px $white;
+  }
+
+  &:not(.dropdown-toggle) {
+    padding: 0 10px;
+  }
+}
+
+.dropdown-toggle {
+  background-color: $white-four;
+
+  &:not(.dropdown-toggle) {
+    background-color: $white-two;
+    border: solid 1px $white-two;
+  }
+}

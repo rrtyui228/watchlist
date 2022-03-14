@@ -23,7 +23,7 @@ class Filter extends Component {
   }
 
   get refreshIcon() {
-    return <ArrowClockwise className={s.icon} />;
+    return <ArrowClockwise className={cn(s.icon, s.rotate)} />;
   }
 
   get filterIcon() {
@@ -43,34 +43,41 @@ class Filter extends Component {
     });
   };
 
-  createButton = (icon, innerText, onClick) => {
-    return (
-      <Button
-        size={'small'}
-        variant={'light'}
-        className={s.filterButton}
-        onClick={onClick}
-      >
-        <div className={s.filterInnerButton}>
-          {icon}
-          {innerText}
-        </div>
-      </Button>
-    );
-  };
-
   render() {
     const {fetchWatchlist} = this.props;
 
     return (
       <div className={s.container}>
         <div className={s.buttons}>
-          {
-            this.createButton(this.refreshIcon, 'Refresh', fetchWatchlist)
-          }
-          {
-            this.createButton(this.filterIcon, 'Filters', this.expandFilter)
-          }
+          <Button
+            size={'small'}
+            variant={'light'}
+            className={s.filterButton}
+            onClick={fetchWatchlist}
+          >
+            <div className={s.filterInnerButton}>
+              {this.refreshIcon}
+              Refresh
+            </div>
+          </Button>
+          <Button
+            size={'small'}
+            variant={'light'}
+            className={
+              cn(
+                s.filterButton,
+                {
+                  [s.active]: this.state.isExpanded
+                }
+              )
+            }
+            onClick={this.expandFilter}
+          >
+            <div className={s.filterInnerButton}>
+              {this.filterIcon}
+              Filters
+            </div>
+          </Button>
         </div>
         {
           this.state.isExpanded && (

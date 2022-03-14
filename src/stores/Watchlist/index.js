@@ -44,11 +44,7 @@ class Watchlist {
   constructor() {
     makeObservable(this);
 
-    window.onscroll = () => {
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        this.setNeedLoad(true);
-      }
-    };
+    window.onscroll = this.windowOnScroll;
 
     this.resetFilters();
     this.fetchWatchlist();
@@ -138,6 +134,13 @@ class Watchlist {
   resetFilters = () => {
     if (!isEqual(this.filters, this.#defaultFilters)) {
       this.setFilters(this.#defaultFilters);
+    }
+  };
+
+  windowOnScroll = () => {
+    // check if user scrolled to bottom
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      this.setNeedLoad(true);
     }
   };
 

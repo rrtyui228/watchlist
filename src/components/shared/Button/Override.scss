@@ -1,0 +1,19 @@
+@import '../../../styles/variables';
+
+.btn {
+  border-radius: 3px;
+  box-shadow: none !important;
+}
+
+.btn-light {
+  background-color: $white-four;
+
+  &:hover {
+    background-color: $gray-two;
+    border: solid 1px $gray-two;
+  }
+
+  &:not(:hover) {
+    border: solid 1px $white;
+  }
+}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Button as ButtonBootstrap} from 'react-bootstrap';
 import cn from 'classnames';
 import s from './Button.module.scss';
+import './Override.scss';
 
 class Button extends Component {
   render() {

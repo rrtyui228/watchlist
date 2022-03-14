@@ -7,6 +7,11 @@
     display: flex;
     margin-bottom: 2px;
 
+    .active {
+      background-color: $gray-two;
+      border: solid 1px $gray-two;
+    }
+
     .filterButton:first-child {
       margin-right: 6px;
     }
@@ -19,12 +24,16 @@
       justify-content: space-around;
 
       .icon {
-        width: 15px;
-        height: 15px;
+        width: 18px;
+        height: 18px;
         display: flex;
         justify-content: center;
         align-items: center;
         color: $blue;
+      }
+
+      .rotate {
+        transform: rotate(40deg);
       }
 
       .mirrored {

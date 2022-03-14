@@ -11,12 +11,12 @@ class DropdownLabel extends Component {
 
     return (
       <div className={s.container}>
-        <div className={s.value}>
+        <span className={s.value}>
           {value}
-        </div>
-        <div className={s.title}>
+        </span>
+        <span className={s.title}>
           {title}
-        </div>
+        </span>
       </div>
     );
   }

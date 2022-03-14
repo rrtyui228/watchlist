@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {inject, observer} from 'mobx-react';
 import s from '../Story.module.scss';
-import cn from 'classnames';
 import {ChevronDown} from 'react-bootstrap-icons';
 import {Score} from 'shared';
 
@@ -26,14 +25,7 @@ class Rating extends React.Component {
           onClick={toggleIsExpanded}
         >
           <ChevronDown
-            className={
-              cn(
-                {
-                  [s.reversed]: isExpanded,
-                  [s.unReversed]: !isExpanded
-                }
-              )
-            }
+            className={isExpanded ? s.reversed : s.unReversed}
           />
         </div>
       </div>

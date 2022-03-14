@@ -20,6 +20,11 @@
       align-items: flex-start;
       width: 100%;
 
+      @media screen and (max-width: $small-screen) {
+        padding: 12px 15px;
+        flex-direction: column;
+      }
+
       .info {
         display: flex;
         flex-direction: column;
@@ -67,6 +72,11 @@
         align-items: center;
         margin-top: 6px;
 
+        @media screen and (max-width: $small-screen) {
+          justify-content: space-between;
+          width: 100%;
+        }
+
         .expand {
           display: flex;
           justify-content: center;
@@ -74,11 +84,11 @@
           width: 24px;
           height: 24px;
           margin-left: 20px;
+          border-radius: 50%;
           transition: 0.4s ease-in-out;
 
           &:hover {
             cursor: pointer;
-            border-radius: 50%;
             background-color: $gray-two;
           }
         }
@@ -100,15 +110,25 @@
     .image {
       object-fit: cover;
       max-width: 70px;
+
+      @media screen and (max-width: $small-screen) {
+        max-width: 50px;
+      }
     }
   }
 
   .additional {
+    padding: 12px 20px;
     width: 100%;
     height: 40px;
     display: flex;
     justify-content: flex-end;
     box-shadow: 0 -1px 0 0 $gray-four;
+
+    @media screen and (max-width: $small-screen) {
+      height: 62px;
+      padding: 10px 14px;
+    }
 
     .icon {
       width: 16px;
@@ -122,7 +142,7 @@
       margin-right: 45px;
 
       &:last-child {
-        margin-right: 20px;
+        margin-right: 0;
       }
     }
   }

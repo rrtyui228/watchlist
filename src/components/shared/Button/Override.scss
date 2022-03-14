@@ -1,7 +1,7 @@
 @import '../../../styles/variables';
 
 .btn {
-  height: $button-height;
+  min-height: $button-height;
   border-radius: 3px;
   box-shadow: none !important;
 }
@@ -30,5 +30,19 @@
 
   &:not(:hover) {
     background-color: $blue;
+  }
+}
+
+@media screen and (max-width: $small-screen) {
+  .btn-light {
+    background-color: $white-four !important;
+
+    &:hover {
+      border: solid 1px $white-four;
+    }
+
+    &:not(:hover) {
+      border: solid 1px $white !important;
+    }
   }
 }

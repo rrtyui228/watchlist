@@ -1,3 +1,5 @@
+@import '../../../styles/variables';
+
 .button {
   display: flex;
   justify-content: center;
@@ -14,4 +16,9 @@
 
 .small {
   width: 100px;
+
+  @media screen and (max-width: $small-screen) {
+    width: 40px;
+    padding: 0;
+  }
 }

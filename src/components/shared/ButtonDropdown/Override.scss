@@ -6,11 +6,47 @@
   box-shadow: 0 2px 15px 0 $black-shadow;
   padding: 0;
   border: none;
+  font-size: 14px;
+
+  @media screen and (max-width: $small-screen) {
+    width: calc(100% - 40px);
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+}
+
+.form-check {
+  min-height: 25px;
+
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+
+  .form-check-input {
+    width: 18px;
+    height: 18px;
+    border-radius: 2px;
+  }
+
+  .form-check-label {
+    margin: 3px 0 0 7px;
+  }
 }
 
 .btn-group {
   min-width: $button-width;
   height: $button-height;
+
+  @media screen and (max-width: $small-screen) {
+    min-width: 290px;
+    height: 64px;
+
+    &:not(:last-child) {
+      border-bottom: solid 1px $white-two;
+    }
+  }
 }
 
 .btn-info {
@@ -38,12 +74,25 @@
 
   &:not(.dropdown-toggle) {
     padding: 0 10px;
+
+    @media screen and (max-width: $small-screen) {
+      padding: 13px;
+    }
   }
 }
 
 .dropdown-toggle {
   max-width: 31px;
   background-color: $white-four;
+
+  @media screen and (max-width: $small-screen) {
+    position: absolute !important;
+    min-width: 101%;
+    min-height: 101%;
+    max-width: none;
+    padding: 0;
+    background-color: transparent !important;
+  }
 
   &:not(.dropdown-toggle) {
     background-color: $white-two;
@@ -57,6 +106,10 @@
     border-width: 0 1px 1px 0;
     display: inline-block;
     padding: 3px;
+
+    @media screen and (max-width: $small-screen) {
+      display: none;
+    }
   }
 }
 

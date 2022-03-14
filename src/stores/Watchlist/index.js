@@ -96,7 +96,7 @@ class Watchlist {
       return this.allLanguagesLabel;
     }
 
-    let languagesLabel = `${languagesMap[languages[0]]}`;
+    let languagesLabel = languagesMap[languages[0]];
 
     if (languages.length > 1) {
       languagesLabel += ` and ${languages.length - 1} more...`;

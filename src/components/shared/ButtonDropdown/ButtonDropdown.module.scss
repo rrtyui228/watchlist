@@ -6,10 +6,35 @@
   padding: 20px;
 
   .title {
-    font-size: 13px;
     font-weight: bold;
     color: $black-two !important;
     text-transform: uppercase;
     margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .exitIcon {
+      display: none;
+
+      @media screen and (max-width: $small-screen) {
+        display: block;
+        width: 20px;
+        height: 20px;
+        color: $warm-gray;
+        border-radius: 50%;
+        transition: 0.4s ease-in-out;
+
+        &:hover {
+          cursor: pointer;
+          background-color: $gray-two;
+        }
+      }
+    }
+  }
+
+  .checks {
+    display: flex;
+    flex-direction: column;
   }
 }

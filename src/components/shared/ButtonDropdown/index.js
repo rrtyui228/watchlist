@@ -1,10 +1,33 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {SplitButton, Form}  from 'react-bootstrap';
+import {X as ExitIcon} from 'react-bootstrap-icons';
 import s from './ButtonDropdown.module.scss';
 import './Override.scss';
 
 class ButtonDropdown extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isOpen: false
+    };
+  }
+
+  closeMenu = () => {
+    this.setState({
+      isOpen:false
+    });
+  };
+
+  toggleMenu = () => {
+    this.setState(({isOpen: prev}) => {
+      return {
+        isOpen: !prev
+      };
+    });
+  };
+
   onChange = ({target}) => this.props.onChange?.(target?.id, target?.checked);
 
   render() {
@@ -21,10 +44,13 @@ class ButtonDropdown extends Component {
         className={className}
         title={title}
         variant={'info'}
+        show={this.state.isOpen}
+        onToggle={this.toggleMenu}
       >
         <div className={s.list}>
           <div className={s.title}>
             {`${dropdownTitle}:`}
+            <ExitIcon onClick={this.closeMenu} className={s.exitIcon} />
           </div>
           <div className={s.checks}>
             {

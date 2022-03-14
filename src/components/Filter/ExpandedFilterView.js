@@ -4,6 +4,7 @@ import s from './Filter.module.scss';
 import {inject, observer} from 'mobx-react';
 import {toJS} from 'mobx';
 import FilterDropdown from './FilterDropdown';
+import cn from 'classnames';
 import {Button} from 'shared';
 
 @inject(({WatchlistStore}) => {
@@ -97,7 +98,7 @@ class ExpandedFilterView extends Component {
             />
             <Button
               onClick={resetFilters}
-              className={s.filterButton}
+              className={cn(s.filterButton, s.notForSmallSize)}
             >
               RESET
             </Button>

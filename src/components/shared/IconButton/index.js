@@ -9,9 +9,13 @@ const IconButton = ({children, title, className}) => {
       <div className={s.icon}>
         {children}
       </div>
-      <div className={s.title}>
-        {title}
-      </div>
+      {
+        title && (
+          <div className={s.title}>
+            {title}
+          </div>
+        )
+      }
     </div>
   );
 };

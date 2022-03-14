@@ -9,7 +9,7 @@ import {Button} from 'shared';
 
 @inject(({WatchlistStore}) => {
   return {
-    fetchWatchlist: WatchlistStore.fetchWatchlist,
+    fetchWatchlist: WatchlistStore.fetchWatchlist
   };
 })
 @observer
@@ -74,7 +74,9 @@ class Filter extends Component {
             >
               <div className={s.filterInnerButton}>
                 {this.refreshIcon}
-                Refresh
+                <div className={s.filterButtonLabel}>
+                  Refresh
+                </div>
               </div>
             </Button>
             <Button
@@ -83,16 +85,16 @@ class Filter extends Component {
               className={
                 cn(
                   s.filterButton,
-                  {
-                    [s.active]: this.state.isExpanded
-                  }
+                  {[s.active]: this.state.isExpanded}
                 )
               }
               onClick={this.handleClick}
             >
               <div className={s.filterInnerButton}>
                 {this.filterIcon}
-                Filters
+                <div className={s.filterButtonLabel}>
+                  Filters
+                </div>
               </div>
             </Button>
           </div>

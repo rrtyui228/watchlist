@@ -3,11 +3,21 @@
 
 body {
   margin: 0;
-  font-family: 'Lato', sans-serif, regular;
+  font-family: 'Lato', sans-serif;
+  line-height: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
   background-color: $white-two !important;
+}
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
 
 code {

@@ -6,9 +6,9 @@ import Filter from 'components/Filter';
 const Watchlist = () => (
   <div className={s.watchlist}>
     <div className={s.container}>
-      <span className={s.mainTitle}>
+      <div className={s.mainTitle}>
         Watchlist Name
-      </span>
+      </div>
       <Filter />
       <Stories />
     </div>

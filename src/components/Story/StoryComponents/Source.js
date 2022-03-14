@@ -8,19 +8,30 @@ import {inject, observer} from 'mobx-react';
     thumb: StoryStore.thumb,
     sourceName: StoryStore.sourceName,
     publishDiffLabel: StoryStore.publishDiffLabel,
+    sourceHost: StoryStore.sourceHost
   };
 })
 @observer
 class Source extends React.Component {
   render() {
-    const {thumb, sourceName, publishDiffLabel} = this.props;
+    const {
+      thumb,
+      sourceName,
+      publishDiffLabel,
+      sourceHost
+    } = this.props;
 
     return (
       <div className={s.source}>
         <img src={thumb} alt={''} className={s.thumb} />
-        <div className={s.name}>
+        <a
+          href={sourceHost}
+          className={s.name}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {sourceName}
-        </div>
+        </a>
         <div className={s.publish}>
           {publishDiffLabel}
         </div>
@@ -32,7 +43,8 @@ class Source extends React.Component {
 Source.propTypes = {
   thumb: PropTypes.string,
   sourceName: PropTypes.string,
-  publishDiffLabel: PropTypes.string
+  publishDiffLabel: PropTypes.string,
+  sourceHost: PropTypes.string
 };
 
 export default Source;

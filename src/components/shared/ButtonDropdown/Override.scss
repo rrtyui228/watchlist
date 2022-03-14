@@ -1,7 +1,16 @@
 @import '../../../styles/variables';
 
+.dropdown-menu {
+  min-width: $button-width;
+  transform: translate(0, $button-height + 10) !important;
+  box-shadow: 0 2px 15px 0 $black-shadow;
+  padding: 0;
+  border: none;
+}
+
 .btn-group {
-  height: 40px;
+  min-width: $button-width;
+  height: $button-height;
 }
 
 .btn-info {
@@ -9,6 +18,16 @@
   border-color: transparent !important;
 
   &:hover {
+    background-color: $white-two;
+    border: solid 1px $white-two;
+  }
+
+  &:focus {
+    background-color: $white-four;
+    border-color: transparent !important;
+  }
+
+  &:active {
     background-color: $white-two;
     border: solid 1px $white-two;
   }
@@ -23,10 +42,28 @@
 }
 
 .dropdown-toggle {
+  max-width: 31px;
   background-color: $white-four;
 
   &:not(.dropdown-toggle) {
     background-color: $white-two;
     border: solid 1px $white-two;
+  }
+
+  &::after {
+    transition: 0.3s ease-in-out;
+    transform: rotate(45deg);
+    border: solid $warm-gray;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 3px;
+  }
+}
+
+.show > .btn-info.dropdown-toggle {
+  background-color: $white-two;
+
+  &:focus::after {
+    transform: rotate(225deg);
   }
 }

@@ -8,6 +8,7 @@ class Story {
   sourceName = '';
   publishDiffLabel = '';
   sourceUrl = '';
+  sourceHost = '';
 
   imageUrls = [];
   score = 0;
@@ -21,6 +22,7 @@ class Story {
     score,
     domain_cached_logo_url,
     domain_name,
+    domain_host,
     publishTimeDiff,
     url
   }) {
@@ -35,6 +37,7 @@ class Story {
     this.thumb = domain_cached_logo_url;
     this.sourceName = domain_name;
     this.sourceUrl = url;
+    this.sourceHost = `https://${domain_host}`;
     this.publishDiffLabel = this.getDatesDifference(publishTimeDiff);
   }
 

@@ -1,7 +1,23 @@
-import {action, makeObservable, observable, reaction, toJS} from 'mobx';
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  reaction,
+  toJS
+} from 'mobx';
 import {isEqual} from 'lodash';
+import consts from './consts';
 
-const MILLISECONDS_FACTOR = 1000;
+const {
+  defaultFilters,
+  refreshMap,
+  reverseOrdersMap,
+  ordersMap,
+  languagesMap,
+  reverseLanguagesMap,
+  refreshList
+} = consts;
 
 class Watchlist {
   #refreshTimeout = null;
@@ -12,29 +28,19 @@ class Watchlist {
 
   #limit = 20;
 
-  #defaultFilters = {
-    autoRefresh: '1 minute',
-    order: 'latest',
-    languages: ['en']
-  };
+  #defaultFilters = defaultFilters;
 
-  #refreshMap = {
-    '10 seconds': 10 * MILLISECONDS_FACTOR,
-    '30 seconds': 30 * MILLISECONDS_FACTOR,
-    '1 minute': 60 * MILLISECONDS_FACTOR,
-    '10 minutes': 600 * MILLISECONDS_FACTOR
-  };
+  #refreshMap = refreshMap;
 
-  languagesList = ['en', 'de', 'zh', 'it'];
+  reverseOrdersMap = reverseOrdersMap;
 
-  orderList = ['top', 'latest', 'retweeted', 'read'];
+  ordersMap = ordersMap;
 
-  refreshList = [
-    '10 seconds',
-    '30 seconds',
-    '1 minute',
-    '10 minutes'
-  ];
+  languagesMap = languagesMap;
+
+  reverseLanguagesMap = reverseLanguagesMap;
+
+  refreshList = refreshList;
 
   @observable stories = [];
   @observable filters = {};
@@ -72,6 +78,28 @@ class Watchlist {
     );
   }
 
+  @computed get selectedAllLanguages() {
+    const {languages} = this.filters;
+
+    return languages.length === Object.values(this.languagesMap).length;
+  }
+
+  @computed get languagesLabel() {
+    const {languages} = this.filters;
+
+    if (!languages.length || this.selectedAllLanguages) {
+      return 'All Languages';
+    }
+
+    let languagesLabel = `${languagesMap[languages[0]]}`;
+
+    if (languages.length > 1) {
+      languagesLabel += ` and ${languages.length - 1} more...`;
+    }
+
+    return languagesLabel;
+  }
+
   @action setNeedLoad = (needLoad) => {
     this.needLoad = needLoad;
   };
@@ -84,14 +112,19 @@ class Watchlist {
 
   @action setOrder = (order) => {
     if (order !== this.filters.order) {
-      this.filters.order = order;
+      this.filters.order = this.reverseOrdersMap[order];
     }
   };
 
-  @action setLanguages = (languages) => {
-    if (!isEqual(this.filters.languages, [languages])) {
-      // TODO: remove to array
-      this.filters.languages = [languages];
+  @action setLanguages = (label, checked) => {
+    const language = this.reverseLanguagesMap[label];
+
+    if (label === 'All Languages') {
+      this.filters.languages = checked ? Object.keys(this.languagesMap) : [];
+    } else if (checked) {
+      this.filters.languages.push(language);
+    } else {
+      this.filters.languages = this.filters.languages.filter((item) => item !== language);
     }
   };
 

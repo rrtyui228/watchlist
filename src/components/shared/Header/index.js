@@ -7,7 +7,9 @@ const Header = () => {
   return (
     <div className={s.container}>
       <header className={s.header}>
-        <img src={logo} alt={''} />
+        <a href={'/'}>
+          <img src={logo} alt={''} className={s.logo} />
+        </a>
         <div className={s.avatarContainer}>
           <div className={s.avatar} />
           <CaretDownFill />

@@ -1,6 +1,7 @@
 @import '../../../styles/variables';
 
 .btn {
+  height: $button-height;
   border-radius: 3px;
   box-shadow: none !important;
 }
@@ -15,5 +16,19 @@
 
   &:not(:hover) {
     border: solid 1px $white;
+  }
+}
+
+.btn-primary {
+  color: $white-two;
+  background-color: $blue;
+
+  &:hover {
+    background-color: $dark-blue;
+    border: solid 1px $dark-blue;
+  }
+
+  &:not(:hover) {
+    background-color: $blue;
   }
 }

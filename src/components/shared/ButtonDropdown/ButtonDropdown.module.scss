@@ -1,0 +1,15 @@
+@import '../../../styles/variables';
+
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  .title {
+    font-size: 13px;
+    font-weight: bold;
+    color: $black-two !important;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+}

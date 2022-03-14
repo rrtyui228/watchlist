@@ -3,15 +3,20 @@ import PropTypes from 'prop-types';
 import s from './Filter.module.scss';
 import {inject, observer} from 'mobx-react';
 import {toJS} from 'mobx';
-import {Button, ButtonDropdown, DropdownLabel} from 'shared';
+import FilterDropdown from './FilterDropdown';
+import {Button} from 'shared';
 
 @inject(({WatchlistStore}) => {
   return {
     autoRefresh: WatchlistStore.filters.autoRefresh,
     order: WatchlistStore.filters.order,
     languages: toJS(WatchlistStore.filters.languages) || [],
-    languagesList: WatchlistStore.languagesList,
-    orderList: WatchlistStore.orderList,
+    languagesList: Object.values(WatchlistStore.languagesMap) || [],
+    orderList: Object.values(WatchlistStore.ordersMap) || [],
+    ordersMap: WatchlistStore.ordersMap,
+    languagesLabel: WatchlistStore.languagesLabel,
+    reverseLanguagesMap: WatchlistStore.reverseLanguagesMap,
+    selectedAllLanguages: WatchlistStore.selectedAllLanguages,
     refreshList: WatchlistStore.refreshList,
     setLanguages: WatchlistStore.setLanguages,
     setOrder: WatchlistStore.setOrder,
@@ -28,6 +33,10 @@ class ExpandedFilter extends Component {
       languages,
       languagesList,
       orderList,
+      ordersMap,
+      reverseLanguagesMap,
+      selectedAllLanguages,
+      languagesLabel,
       refreshList,
       setLanguages,
       setOrder,
@@ -35,49 +44,60 @@ class ExpandedFilter extends Component {
       resetFilters
     } = this.props;
 
+    const formattedOrders = orderList.map((currentOrder) => {
+      return {
+        item: currentOrder,
+        checked: ordersMap[order] === currentOrder
+      };
+    });
+
+    const formattedRefreshList = refreshList.map((currentRefresh) => {
+      return {
+        item: currentRefresh,
+        checked: autoRefresh === currentRefresh
+      };
+    });
+
+    const languagesPreset = languagesList.map((language) => {
+      return {
+        item: language,
+        checked: languages.includes(reverseLanguagesMap[language])
+      };
+    });
+
+    const formattedLanguagesList = [{
+      item: 'All Languages',
+      checked: selectedAllLanguages
+    }, ...languagesPreset];
+
     return (
       <>
         <div className={s.triangle} />
         <div className={s.filter}>
           <div className={s.wrapper}>
-            <ButtonDropdown
+            <FilterDropdown
               onChange={setRefreshTime}
-              className={s.filterButton}
-              items={refreshList}
-              title={
-                <DropdownLabel
-                  title={'autorefresh'}
-                  value={autoRefresh}
-                />
-              }
+              items={formattedRefreshList}
+              labelTitle={'autorefresh'}
+              labelValue={autoRefresh}
             />
-            <ButtonDropdown
+            <FilterDropdown
               onChange={setOrder}
-              className={s.filterButton}
-              items={orderList}
-              title={
-                <DropdownLabel
-                  title={'order'}
-                  value={order}
-                />
-              }
+              items={formattedOrders}
+              labelTitle={'order'}
+              labelValue={ordersMap[order]}
             />
-            <ButtonDropdown
+            <FilterDropdown
               onChange={setLanguages}
-              className={s.filterButton}
-              items={languagesList}
-              title={
-                <DropdownLabel
-                  title={'languages'}
-                  value={languages.join(',')}
-                />
-              }
+              items={formattedLanguagesList}
+              labelTitle={'languages'}
+              labelValue={languagesLabel}
             />
             <Button
               onClick={resetFilters}
               className={s.filterButton}
             >
-              Reset
+              RESET
             </Button>
           </div>
         </div>
@@ -91,6 +111,10 @@ ExpandedFilter.propTypes = {
   languagesList: PropTypes.arrayOf(PropTypes.string),
   orderList: PropTypes.arrayOf(PropTypes.string),
   refreshList: PropTypes.arrayOf(PropTypes.string),
+  ordersMap: PropTypes.object,
+  languagesLabel: PropTypes.string,
+  reverseLanguagesMap: PropTypes.object,
+  selectedAllLanguages: PropTypes.bool,
   order: PropTypes.string,
   languages: PropTypes.array,
   setLanguages: PropTypes.func,
